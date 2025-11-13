@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Diritto Amministrativo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Quiz Diritto">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #quiz {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 20px 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 18px;
+      padding: 12px 10px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .question.correct {
+      background: #c8e6c9; /* verde chiaro */
+    }
+    .question.incorrect {
+      background: #ffcdd2; /* rosso chiaro */
+    }
+    .question h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .options label {
+      display: block;
+      margin: 3px 0;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .feedback {
+      margin-top: 4px;
+      font-size: 14px;
+      font-style: italic;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    #checkBtn {
+      background: #1976d2;
+      color: white;
+    }
+    #resetBtn {
+      background: #e0e0e0;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz – Diritto Amministrativo</h1>
+  <div id="quiz"></div>
+
+  <script>
+    const questions = [
+      {
+        id: 1,
+        text: "In base all’art. 97 Cost. i pubblici uffici sono organizzati:",
+        options: {
+          a: "autonomamente mediante regolamenti;",
+          b: "in modo da garantire efficienza e trasparenza;",
+          c: "secondo criteri e logiche aziendalistiche;",
+          d: "in modo da assicurare il rispetto dei principi di buon andamento e imparzialità."
+        },
+        correct: "d"
+      },
+      {
+        id: 2,
+        text: "In base all’art. 98 Cost. i pubblici impiegati sono:",
+        options: {
+          a: "al servizio esclusivo del governo;",
+          b: "al servizio esclusivo della nazione;",
+          c: "al servizio esclusivo della maggioranza di governo;",
+          d: "assolutamente autonomi."
+        },
+        correct: "b"
+      },
+      {
+        id: 3,
+        text: "In base all’art. 95 Cost. i ministri:",
+        options: {
+          a: "sono responsabili individualmente degli atti del Consiglio dei Ministri;",
+          b: "sono responsabili individualmente degli atti dei loro dicasteri;",
+          c: "sono esonerati da ogni forma di responsabilità;",
+          d: "sono responsabili per il mancato raggiungimento degli obiettivi."
+        },
+        correct: "b"
+      },
+      {
+        id: 4,
+        text: "L’affidamento diretto di contratti pubblici alle società in house:",
+        options: {
+          a: "è in ogni caso illegittimo;",
+          b: "è legittimo, ma deve essere motivato;",
+          c: "è illegittimo, ma deve essere motivato;",
+          d: "è sempre legittimo."
+        },
+        correct: "b"
+      },
+      {
+        id: 5,
+        text: "Le società in house sono:",
+        options: {
+          a: "società sulle quali un’amministrazione o più amministrazioni esercitano un controllo analogo e che svolgono la maggior parte della propria attività in favore di esse;",
+          b: "società pubbliche che emettono azioni quotate in mercati regolamentati;",
+          c: "società sulle quali un’amministrazione o più amministrazioni esercitano un controllo analogo e che svolgono parte della propria attività in favore di esse e sul mercato;",
+          d: "società che hanno una partecipazione mista pubblico-privata."
+        },
+        correct: "a"
+      },
+      {
+        id: 6,
+        text: "Nelle società in house:",
+        options: {
+          a: "non può esserci partecipazione di capitali privati;",
+          b: "non può esserci partecipazione di capitali privati, ad eccezione di quella prevista da norme di legge e che avvenga in forme che non comportino controllo o potere di veto, né l’esercizio di un’influenza determinante sulla società controllata;",
+          c: "non può esserci partecipazione di capitali pubblici;",
+          d: "può esserci partecipazione di capitali privati."
+        },
+        correct: "b"
+      },
+      {
+        id: 7,
+        text: "In base all’art. 97 Cost. agli impieghi nelle pubbliche amministrazioni si accede:",
+        options: {
+          a: "soltanto mediante concorso;",
+          b: "mediante concorso, salvi i casi stabiliti dalla legge;",
+          c: "attraverso colloquio, con esito positivo;",
+          d: "attraverso un contratto di somministrazione di mano d’opera."
+        },
+        correct: "b"
+      },
+      {
+        id: 8,
+        text: "In base al d. lgs. 175/2016 le società pubbliche possono essere costituite da una pubblica amministrazione:",
+        options: {
+          a: "per il perseguimento delle proprie finalità istituzionali;",
+          b: "esclusivamente per la produzione di servizi di interesse generale;",
+          c: "per finalità di lucro;",
+          d: "per finalità di lucro ferme restando le finalità istituzionali."
+        },
+        correct: "d"
+      },
+      {
+        id: 9,
+        text: "In base all’art. 2, d. lgs. 165/2001, i rapporti di lavoro dei dipendenti delle amministrazioni pubbliche:",
+        options: {
+          a: "sono regolati esclusivamente dalle disposizioni del capo I, titolo II, del libro V del codice civile e dalle leggi sui rapporti di lavoro subordinato nell’impresa;",
+          b: "sono regolati esclusivamente dal diritto pubblico;",
+          c: "sono disciplinati dalle disposizioni del capo I, titolo II, del libro V del codice civile e dalle leggi sui rapporti di lavoro subordinato nell’impresa, fatte salve le diverse disposizioni contenute nel d. lgs. 165/2001;",
+          d: "sono regolati con decreto del Presidente della Repubblica."
+        },
+        correct: "c"
+      },
+      {
+        id: 10,
+        text: "I magistrati ordinari, amministrativi e contabili:",
+        options: {
+          a: "appartengono al personale in regime di diritto privato;",
+          b: "appartengono al personale in regime di diritto pubblico;",
+          c: "svolgono funzioni di indirizzo politico-amministrativo;",
+          d: "appartengono al personale contrattualizzato."
+        },
+        correct: "b"
+      },
+      {
+        id: 11,
+        text: "Quale di queste attività NON rientra nella funzione di indirizzo politico-amministrativo di cui all’art. 4, d. lgs. 165/2001?",
+        options: {
+          a: "definizione degli obiettivi e dei programmi;",
+          b: "decisioni in materia di atti normativi e adozione di atti di indirizzo;",
+          c: "adozione di provvedimenti, gestione finanziaria, tecnica e amministrativa;",
+          d: "individuazione delle risorse umane da destinare alle diverse finalità."
+        },
+        correct: "c"
+      },
+      {
+        id: 12,
+        text: "Le linee fondamentali di organizzazione degli uffici pubblici sono definite:",
+        options: {
+          a: "secondo principi generali fissati nei regolamenti amministrativi;",
+          b: "secondo principi generali fissati dalla legge e mediante atti organizzativi attuativi;",
+          c: "in modo assolutamente autonomo mediante regolamenti amministrativi;",
+          d: "secondo principi generali fissati dai contratti collettivi."
+        },
+        correct: "b"
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+
+    function renderQuiz() {
+      const form = document.createElement("form");
+      form.id = "quizForm";
+
+      questions.forEach(q => {
+        const qDiv = document.createElement("div");
+        qDiv.className = "question";
+        qDiv.id = `question-${q.id}`;
+
+        const title = document.createElement("h3");
+        title.textContent = `${q.id}) ${q.text}`;
+        qDiv.appendChild(title);
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "options";
+
+        for (const [letter, text] of Object.entries(q.options)) {
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `q${q.id}`;
+          input.value = letter;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${letter}) ${text}`));
+          optionsDiv.appendChild(label);
+        }
+
+        const feedback = document.createElement("div");
+        feedback.className = "feedback";
+        feedback.id = `feedback-${q.id}`;
+
+        qDiv.appendChild(optionsDiv);
+        qDiv.appendChild(feedback);
+        form.appendChild(qDiv);
+      });
+
+      const checkBtn = document.createElement("button");
+      checkBtn.type = "button";
+      checkBtn.id = "checkBtn";
+      checkBtn.textContent = "Correggi il quiz";
+
+      const resetBtn = document.createElement("button");
+      resetBtn.type = "button";
+      resetBtn.id = "resetBtn";
+      resetBtn.textContent = "Reset";
+
+      const resultDiv = document.createElement("div");
+      resultDiv.className = "result";
+      resultDiv.id = "result";
+
+      form.appendChild(checkBtn);
+      form.appendChild(resetBtn);
+      form.appendChild(resultDiv);
+
+      quizContainer.appendChild(form);
+
+      checkBtn.addEventListener("click", checkAnswers);
+      resetBtn.addEventListener("click", resetQuiz);
+    }
+
+    function checkAnswers() {
+      let score = 0;
+
+      questions.forEach(q => {
+        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+        const qDiv = document.getElementById(`question-${q.id}`);
+        const feedback = document.getElementById(`feedback-${q.id}`);
+
+        qDiv.classList.remove("correct", "incorrect");
+        feedback.textContent = "";
+
+        if (!selected) {
+          feedback.textContent = "Nessuna risposta selezionata.";
+          return;
+        }
+
+        if (selected.value === q.correct) {
+          score++;
+          qDiv.classList.add("correct");
+          feedback.textContent = "Corretto!";
+        } else {
+          qDiv.classList.add("incorrect");
+          feedback.textContent = `Sbagliato. Risposta esatta: ${q.correct}) ${q.options[q.correct]}`;
+        }
+      });
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.textContent = `Punteggio: ${score} / ${questions.length}`;
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll("input[type=radio]").forEach(i => (i.checked = false));
+      document.querySelectorAll(".question").forEach(q => q.classList.remove("correct", "incorrect"));
+      document.querySelectorAll(".feedback").forEach(f => (f.textContent = ""));
+      document.getElementById("result").textContent = "";
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
